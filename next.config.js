@@ -17,16 +17,14 @@ const nextConfig = {
 		JWT_SECRET: "asdfghjklnbvcxzqwertyuiopmkioprewqasderfgnujm",
 		AWS_SES_USER: "<Update here AWS_SES_USER>",
 		AWS_SES_PASSWORD: "<Update here AWS_SES_PASSWORD>",
-		CLOUD_NAME: "<Update here CLOUD_NAME>",
-		UPLOAD_PRESETS: "<Update here UPLOAD_PRESETS>",
+		CLOUD_NAME: "dcbtaxeld",
+		UPLOAD_PRESETS: "tkk7av4j",
 		CLOUDINARY_URL:
-			"<Update here CLOUDINARY_URL>",
+			"https://api.cloudinary.com/v1_1/dcbtaxeld/image/upload",
 		CLOUDINARY_VIDEO_URL:
-			"<Update here CLOUDINARY_VIDEO_URL>",
+			"https://api.cloudinary.com/v1_1/dcbtaxeld/video/upload",
 		CLOUDINARY_ZIP_URL:
-			"<Update here CLOUDINARY_ZIP_URL>",
-		STRIPE_SECRET_KEY: "<Update here STRIPE_SECRET_KEY>",
-		STRIPE_PUBLISHABLE_KEY: "<Update here STRIPE_PUBLISHABLE_KEY>",
+			"https://api.cloudinary.com/v1_1/dcbtaxeld/raw/upload/.",
 	},
 };
 

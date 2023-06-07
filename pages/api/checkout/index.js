@@ -1,78 +1,80 @@
-import Stripe from "stripe";
-import { v4 as uuidv4 } from "uuid";
-import { Enrolment, Instructor_Earning, Course } from "database/models";
+import { Enrolment, Instructor_Earning, Course, User } from "database/models";
 import { calculateCartTotal } from "@/utils/calculateCartTotal";
-// import { checkoutConfirmation } from "email-templates/checkout-confirmation";
-
-const stripeSecret = Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-	switch (req.method) {
-		case "POST":
-			await handlePostRequest(req, res);
-			break;
-		default:
-			res.status(405).json({
-				message: `Method ${req.method} not allowed`,
-			});
-	}
+  switch (req.method) {
+    case "POST":
+      await handlePostRequest(req, res);
+      break;
+    default:
+      res.status(405).json({
+        message: `Method ${req.method} not allowed`,
+      });
+  }
 }
 
 const handlePostRequest = async (req, res) => {
-	const { cartItems, userId, buyer_name, buyer_email, buyer_avatar } =
-		req.body;
+  const { cartItems, userId, buyer_name, buyer_email, buyer_avatar } =
+    req.body;
 
-	const { stripeTotal } = calculateCartTotal(cartItems);
+  const { cartTotal } = calculateCartTotal(cartItems);
 
-	try {
-		await stripeSecret.charges.create(
-			{
-				amount: stripeTotal,
-				currency: "usd",
-				source: "tok_mastercard",
-				receipt_email: buyer_email,
-				description: `Checkout | ${buyer_email} | ${userId}`,
-			},
-			{
-				idempotencyKey: uuidv4(),
-			}
-		);
+  try {
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new Error(`User not found: ${userId}`);
+    }
 
-		cartItems.forEach(async (cart) => {
-			Enrolment.create({
-				bought_price: cart.price,
-				payment_method: "Card",
-				buyer_name: buyer_name,
-				buyer_email: buyer_email,
-				buyer_avatar: buyer_avatar,
-				userId: userId,
-				courseId: cart.id,
-				status: "paid",
-			});
+    // Check if the user has sufficient balance
+    if (user.balance < cartTotal) {
+      throw new Error("Insufficient balance");
+    }
 
-			const courseInstractor = await Course.findOne({
-				attributes: ["userId"],
-				where: { id: cart.id },
-			});
+    // Deduct the balance from the user
+    const updatedBalance = user.balance - cartTotal;
+    await user.update({ balance: updatedBalance });
 
-			await Instructor_Earning.create({
-				earnings: cart.price,
-				userId: courseInstractor.userId,
-				courseId: cart.id,
-			});
-		});
+    // Process the cart items
+    for (const cartItem of cartItems) {
+      const { id: courseId, price } = cartItem;
 
-		// console.log(cartItems);
+      // Create an enrolment
+      await Enrolment.create({
+        bought_price: price,
+        payment_method: "Balance Deduction",
+        buyer_name,
+        buyer_email,
+        buyer_avatar,
+        userId,
+        courseId,
+        status: "paid",
+      });
 
-		// checkoutConfirmation(cartItems, buyer_name, buyer_email);
+      // Get the course instructor
+      const course = await Course.findOne({
+        attributes: ["userId"],
+        where: { id: courseId },
+      });
 
-		res.status(200).json({
-			message: "Enroled successfully.",
-		});
-	} catch (e) {
-		res.status(400).json({
-			error_code: "create_enroled",
-			message: e.message,
-		});
-	}
+      if (!course) {
+        throw new Error(`Course not found: ${courseId}`);
+      }
+
+      // Create instructor earning
+      await Instructor_Earning.create({
+        earnings: price,
+        userId: course.userId,
+        courseId,
+      });
+    }
+
+    res.status(200).json({
+      message: "Enrolled successfully.",
+    });
+  } catch (e) {
+    res.status(400).json({
+      error_code: "create_enrolment",
+      message: e.message,
+    });
+  }
 };
