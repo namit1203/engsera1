@@ -14,8 +14,7 @@ export default async function handler(req, res) {
 }
 
 const handlePostRequest = async (req, res) => {
-  const { cartItems, userId, buyer_name, buyer_email, buyer_avatar } =
-    req.body;
+  const { cartItems, userId, buyer_name, buyer_email, buyer_avatar } = req.body;
 
   const { cartTotal } = calculateCartTotal(cartItems);
 
@@ -24,14 +23,14 @@ const handlePostRequest = async (req, res) => {
     if (!user) {
       throw new Error(`User not found: ${userId}`);
     }
-
-    // Check if the user has sufficient balance
-    if (user.balance < cartTotal) {
-      throw new Error("Insufficient balance");
-    }
+  const userBalance = parseFloat(user.balance);
+  const cartTotalValue = parseFloat(cartTotal);
+  if (userBalance < cartTotalValue) {
+  throw new Error("Insufficient balance");
+}
 
     // Deduct the balance from the user
-    const updatedBalance = user.balance - cartTotal;
+    const updatedBalance = userBalance - cartTotalValue;
     await user.update({ balance: updatedBalance });
 
     // Process the cart items

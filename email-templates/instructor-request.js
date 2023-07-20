@@ -11,7 +11,7 @@ export const instructorRequest = async (
 	// console.log(user.email)
 	const data = {
 		to: admin_email,
-		from: "Lisbo Language School <hello@envytheme.com>",
+		from: "Engsera Language School <hello@esc.com>",
 		subject: "New Instructor Request",
 		html: `
         <!DOCTYPE html>
@@ -322,8 +322,8 @@ export const instructorRequest = async (
 
                                     <p>
                                         Regards, <br />
-                                        Lisbo Support Team <br />
-                                        All Rights Reserved by Lisbo.com
+                                        Engsera Support Team <br />
+                                        All Rights Reserved by ESCFPT.com
                                     </p>
                                 </div>
                             </td>
@@ -342,7 +342,7 @@ export const instructorRequest = async (
                             <tr>
                               <td style="text-align: center; padding-right: 0;">
                               <p style="text-align: center; margin-bottom: 0; margin-top: 5px">
-                                  <a href="http://lisbo.com/" target="_blank" style="color: #3056de">www.lisbo.com</a>
+                                  <a href="http://Engsera.com/" target="_blank" style="color: #3056de">www.ESCFPT.com</a>
                               </p>
                               </td>
                             </tr>
@@ -354,7 +354,7 @@ export const instructorRequest = async (
                 </tr>
                 <tr>
                   <td class="bg_light" style="text-align: center;">
-                    <p>&copy;2022 Lisbo Support</p>
+                    <p>&copy;2022 Engsera Support</p>
                   </td>
                 </tr>
               </table>

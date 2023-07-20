@@ -107,6 +107,12 @@ const LoginForm = () => {
 									Didn't receive a confirmation email?
 								</a>
 							</Link>
+							<br></br>
+							<Link href="/forgot-password">
+								<a className="lost-your-password">
+									Forgot password?
+								</a>
+							</Link>
 						</div>
 					</div>
 

@@ -5,7 +5,7 @@ export const confirmEmailAddress = async (user) => {
 	// console.log(user.email)
 	const data = {
 		to: user.email,
-		from: "Lisbo Language School <hello@envytheme.com>",
+		from: "ESCFPT Language School <hello@envytheme.com>",
 		subject: "Confirm Your Email Address",
 		html: `
         <!DOCTYPE html>
@@ -308,13 +308,13 @@ export const confirmEmailAddress = async (user) => {
                             <td>
                                 <div class="text" style="padding: 0 2.5em; text-align: left;">
                                     <h4>Dear ${user.first_name},</h4>
-                                    <p>Thanks for registering on the Lisbo! Please click the below link to verify your email address and activate your account.</p>
+                                    <p>Thanks for registering on the ESCFPT! Please click the below link to verify your email address and activate your account.</p>
                                     <p><a href="${baseUrl}/confirm-email?token=${user.reset_password_token}&email=${user.email}" style="text-decoration: underline;">Confirm My Email Address</a></p>
 
                                     <p>
                                         Regards, <br />
-                                        Lisbo Support Team <br />
-                                        All Rights Reserved by Lisbo.com
+                                        ESCFPT Support Team <br />
+                                        All Rights Reserved by ESCFPT.com
                                     </p>
                                 </div>
                             </td>
@@ -333,7 +333,7 @@ export const confirmEmailAddress = async (user) => {
                             <tr>
                               <td style="text-align: center; padding-right: 0;">
                               <p style="text-align: center; margin-bottom: 0; margin-top: 5px">
-                                  <a href="http://lisbo.com/" target="_blank" style="color: #3056de">www.Lisbo.com</a>
+                                  <a href="http://ESCFPT.com/" target="_blank" style="color: #3056de">www.ESCFPT.com</a>
                               </p>
                               </td>
                             </tr>
@@ -345,7 +345,7 @@ export const confirmEmailAddress = async (user) => {
                 </tr>
                 <tr>
                   <td class="bg_light" style="text-align: center;">
-                    <p>&copy;2022 Lisbo Support</p>
+                    <p>&copy;2022 ESCFPT Support</p>
                   </td>
                 </tr>
               </table>

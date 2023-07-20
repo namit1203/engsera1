@@ -2,66 +2,140 @@ import { Model, DataTypes } from "sequelize";
 import connection from "../connection";
 
 const initUser = (sequelize, Types) => {
-	class User extends Model {
-		/**
-		 * Helper method for defining associations.
-		 * This method is not a part of Sequelize lifecycle.
-		 * The `models/index` file will call this method automatically.
-		 */
-		// static associate(models) {
-		// 	// define association here
-		// }
-	}
-	User.init(
-		{
-			id: {
+  class User extends Model {
+    static associate(models) {
+      // Define associations here
+    }
+  }
+
+  User.init(
+    {
+      id: {
 				type: Types.UUID,
 				defaultValue: Types.UUIDV4,
 				primaryKey: true,
 			},
-			first_name: Types.STRING,
-			last_name: Types.STRING,
-			email: Types.STRING,
-			password: Types.STRING,
-			gender: Types.STRING,
-			designation: Types.STRING,
-			bio: Types.TEXT,
-			profile_photo: Types.STRING,
-			location: Types.STRING,
-			phone: Types.STRING,
-			reset_password_token: Types.UUID,
-			reset_password_send_at: Types.DATE,
-			reset_password_at: Types.DATE,
-			website: Types.STRING,
-			twitter: Types.STRING,
-			facebook: Types.STRING,
-			linkedin: Types.STRING,
-			youtube: Types.STRING,
-			role: {
-				type: Types.ENUM,
-				values: ["student", "admin", "instructor"],
-				defaultValue: "student",
-			},
-			email_confirmed: Types.BOOLEAN,
-			email_confirmed_at: Types.DATE,
-			instructor_request: Types.BOOLEAN,
-			instructor_request_confirmed: Types.BOOLEAN,
-			instructor_request_confirmed_at: Types.DATE,
-			instructor_status: Types.BOOLEAN,
-			instructor_subject: Types.STRING,
-			instructor_description: Types.STRING,
-			status: Types.BOOLEAN,
-			is_profile_public: Types.BOOLEAN,
-		},
-		{
-			sequelize,
-			modelName: "User",
-			tableName: "users",
-			createdAt: "created_at",
-			updatedAt: "updated_at",
-		}
-	);
-	return User;
+      first_name: {
+        type: Types.STRING(255),
+        allowNull: false,
+      },
+      last_name: {
+        type: Types.STRING(255),
+        allowNull: false,
+      },
+      email: {
+        type: Types.STRING(255),
+        allowNull: false,
+      },
+      password: {
+        type: Types.STRING(255),
+        allowNull: false,
+      },
+      gender: {
+        type: Types.STRING(255),
+      },
+      designation: {
+        type: Types.STRING(255),
+      },
+      bio: {
+        type: Types.TEXT,
+      },
+      profile_photo: {
+        type: Types.STRING(255),
+      },
+      location: {
+        type: Types.STRING(255),
+      },
+      phone: {
+        type: Types.STRING(255),
+      },
+      reset_password_token: {
+        type: Types.CHAR(36),
+      },
+      reset_password_send_at: {
+        type: Types.DATE,
+      },
+      reset_password_at: {
+        type: Types.DATE,
+      },
+      website: {
+        type: Types.STRING(255),
+      },
+      twitter: {
+        type: Types.STRING(255),
+      },
+      facebook: {
+        type: Types.STRING(255),
+      },
+      linkedin: {
+        type: Types.STRING(255),
+      },
+      youtube: {
+        type: Types.STRING(255),
+      },
+      role: {
+        type: Types.ENUM("student", "admin", "instructor"),
+        defaultValue: "student",
+      },
+      email_confirmed: {
+        type: Types.BOOLEAN,
+        defaultValue: false,
+      },
+      email_confirmed_at: {
+        type: Types.DATE,
+      },
+      instructor_request: {
+        type: Types.BOOLEAN,
+        defaultValue: false,
+      },
+      instructor_request_confirmed: {
+        type: Types.BOOLEAN,
+        defaultValue: false,
+      },
+      instructor_request_confirmed_at: {
+        type: Types.DATE,
+      },
+      instructor_status: {
+        type: Types.BOOLEAN,
+      },
+      instructor_subject: {
+        type: Types.STRING(255),
+      },
+      instructor_description: {
+        type: Types.STRING(255),
+      },
+      status: {
+        type: Types.BOOLEAN,
+        defaultValue: true,
+      },
+      balance: {
+        type: Types.DECIMAL(10, 2),
+        defaultValue: 0.0,
+      },
+      is_profile_public: {
+        type: Types.BOOLEAN,
+        defaultValue: true,
+      },
+      created_at: {
+        type: Types.DATE,
+        defaultValue: Types.NOW,
+        allowNull: false,
+      },
+      updated_at: {
+        type: Types.DATE,
+        defaultValue: Types.NOW,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "User",
+      tableName: "users",
+      timestamps: false,
+    }
+  );
+
+  return User;
 };
 
 export default initUser(connection, DataTypes);

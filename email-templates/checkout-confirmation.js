@@ -5,7 +5,7 @@ export const checkoutConfirmation = async (cartItems, name, email) => {
   // console.log(user.email)
   const data = {
     to: email,
-    from: "Lisbo Language School <hello@envytheme.com>",
+    from: "ENGSERA Language School <hello@ESCFPT.com>",
     subject: "Checkout Confirmation",
     html: `
         <!DOCTYPE html>
@@ -314,7 +314,7 @@ export const checkoutConfirmation = async (cartItems, name, email) => {
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
                                 <td class="logo" style="text-align: left;">
-                                    <h1><a href=${baseUrl}>Lisbo</a></h1>
+                                    <h1><a href=${baseUrl}>ESCFPT</a></h1>
                                 </td>
                             </tr>
                         </table>

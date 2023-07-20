@@ -10,8 +10,8 @@ export const contactFormEmail = async (
 ) => {
 	// console.log(user.email)
 	const data = {
-		to: "shabbir@envytheme.com",
-		from: "Lisbo Language School <hello@envytheme.com>",
+		to: "escfpt@escfpt.com",
+		from: "Engsera Language School <hello@escfpt.com>",
 		subject: "Contact Message",
 		html: `
         <!DOCTYPE html>
@@ -321,8 +321,8 @@ export const contactFormEmail = async (
                                     
                                     <p>
                                         Regards, <br />
-                                        Lisbo Support Team <br />
-                                        All Rights Reserved by Lisbo.com
+                                        Engsera Support Team <br />
+                                        All Rights Reserved by ESCFPT.com
                                     </p>
                                 </div>
                             </td>
@@ -341,7 +341,7 @@ export const contactFormEmail = async (
                             <tr>
                               <td style="text-align: center; padding-right: 0;">
                               <p style="text-align: center; margin-bottom: 0; margin-top: 5px">
-                                  <a href="http://lisbo.com/" target="_blank" style="color: #3056de">www.lisbo.com</a>
+                                  <a href="http://ESCFPT.com/" target="_blank" style="color: #3056de">www.ESCFPT.com</a>
                               </p>
                               </td>
                             </tr>
@@ -353,7 +353,7 @@ export const contactFormEmail = async (
                 </tr>
                 <tr>
                   <td class="bg_light" style="text-align: center;">
-                    <p>&copy;2022 Lisbo Support</p>
+                    <p>&copy;2022 ESCFPT Support</p>
                   </td>
                 </tr>
               </table>
